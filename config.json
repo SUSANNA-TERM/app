@@ -1,0 +1,9 @@
+{
+    "server": {
+        "domain": "localhost",
+        "port": "3000"
+    },
+    "template": {
+        "location": "C:\\Users\\perik\\terminet\\ricardian-contracts\\susanna"
+    }
+}
