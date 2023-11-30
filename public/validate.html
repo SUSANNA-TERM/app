@@ -7,21 +7,20 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="/css/style.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/css/style.css">
+    
     <title>Susanna</title>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://getbootstrap.com/docs/5.3/assets/js/color-modes.js"></script>
     <script type="module" src="https://md-block.verou.me/md-block.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@12/dist/markdown-it.min.js"></script>
-    <script src="/js/contract.js"></script>
-
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/js/validate.js"></script>
+	
 </head>
 <body class="p-0 m-0 border-0">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -85,39 +84,83 @@
         </div>
       
     </nav>
-   
-    <div class="progresses">
+  
 
-      <div class="steps_current" id="step1">
-        <span>1</span>
+  	<div class="container mt-5">
+	
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Upload the signed contract</label>
+        <input class="form-control" type="file" id="formFile" accept="application/pdf">
       </div>
-  
-      <span class="line_empty" id="line1"></span>
-  
-      <div class="steps_next" id="step2">
-        <span>2</span>
+      
+      <div class="mb-3 row">
+      <label for="inputText" class="col-sm-2 col-form-label">Hash: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputText" placeholder="Singed contract hash">
       </div>
-  
-      <span class="line_empty" id="line2"></span>
-  
-      <div class="steps_next" id="step3">
-        <span>3</span>
       </div>
     </div>	
-    
-    <div class="container">
-        <div id="markdownContent" md-block></div>
-        <br><br>
-        <button class="btn btn-primary" onclick="convertToPDF()">Download PDF</button>
-	</div>
 
   <div class="center-container">
-    <button class="btn btn-success" onclick="location.href='upload.html';">Next</button>
-</div>
+    <button class="btn btn-success" onclick="navigate()">Finilize</button>
+  </div>
+ 
   <footer>
 		<hr>
 		<p class="text-center text-body-secondary">MIT GPL Apache License Susanna 2023...</p>
 	</footer> 
+	
+    <script>
+    window.onload = step3;
+
+        	/* START progress bar */
+		function step(number, state) {
+			const step_element = document.getElementById('step'+number) ? document.getElementById('step'+number) : document.createElement("div");
+			const step_line = document.getElementById('line'+number) ? document.getElementById('line'+number) : document.createElement("div");
+			
+			step_element.innerHTML = '<span>'+number+'</span>';
+			step_element.className = '';
+			step_line.className = '';
+
+			if (state == 'current') {
+				step_element.classList.add('steps_current');
+				step_line.classList.add('line_empty');   			
+			}
+			else if (state == 'next') {
+				step_element.classList.add('steps_next');
+				step_line.classList.add('line_empty');
+			}
+			else {
+				step_element.innerHTML = '<span><i class="fa fa-check"></i></span>';
+				step_element.classList.add('steps');
+				step_line.classList.add('line');			
+			
+			}
+		}
+		
+		function step1() {
+			step(1, 'current');
+			step(2, 'next');
+			step(3, 'next');
+		}
+		function step2() {
+			step(1, 'previous');
+			step(2, 'current');
+			step(3, 'next');
+		}
+		function step3() {
+			step(1, 'previous');
+			step(2, 'previous');
+			step(3, 'current');
+		}
+		function finish() {
+			step(1, 'previous');
+			step(2, 'previous');
+			step(3, 'previous');	
+		}
+		/* END progress bar */
+
+    </script>	
 
 </body>
 </html>
