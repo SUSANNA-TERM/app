@@ -26,7 +26,8 @@ function onSubmitForm() {
         billingCycleDays: document.getElementById('billingCycleDays').value,
         invoicePaymentDays: 5,
         supplyThreshold: document.getElementById('supplyThreshold').value,
-        leakNotificationLimit: document.getElementById('leakNotificationLimit').value
+        leakNotificationLimit: document.getElementById('leakNotificationLimit').value,
+        literPrice:5
     };
 
     fetch('http://bion.ddnsgeek.com:3000/generate-contract', {
@@ -55,12 +56,12 @@ function onSubmitForm() {
                 contract: markdownText
             })
         })
-        .then(response => {
-            if (response.status !== 200) {
-                window.alert('Error occurred while writing the contract')
-            }
-            return response.json();
-        })
+        // .then(response => {
+        //     if (response.status !== 200) {
+        //         window.alert('Error occurred while writing the contract')
+        //     }
+        //     return response.json();
+        // })
         .then(data => {
             console.log(data);
             window.location.href = 'contract.html';
