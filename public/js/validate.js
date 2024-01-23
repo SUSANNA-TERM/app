@@ -22,7 +22,7 @@ function validate(hash) {
 async function navigate() {
     if (docHash) {
         if (await validate(docHash)) {
-            location.href = 'check.html?valid=' + encodeURIComponent(true)    
+            location.href = 'bill.html';
         } else {
             location.href = 'check.html?valid=' + encodeURIComponent(false)    
         }
