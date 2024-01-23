@@ -6,7 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let iconElement = document.getElementById("resultIcon");
 
+    let gov = document.getElementById("gov_val");
+
+    let blockchain = document.getElementById("blockchain_val");
+
     if (checksPassed) {
+        gov.textContent="True";
+        blockchain.textContent="True";
         iconElement.classList.add("fa-check");
         iconElement.style.color = "green";
     } else {
